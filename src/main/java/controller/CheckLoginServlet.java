@@ -44,7 +44,7 @@ public class CheckLoginServlet extends HttpServlet {
         // final int USER_ACCOUNT = 2;
 
         if (accountRole == INVALID_ACCOUNT) {
-            request.getRequestDispatcher("login.jsp?error=" + AppMessage.INVALID_CREDENTIALS.getCode()).forward(request,
+            request.getRequestDispatcher("login.jsp?message=" + AppMessage.INVALID_CREDENTIALS.getCode()).forward(request,
                     response);
         } else if (accountRole == ADMIN_ACCOUNT) {
             session.setAttribute("accountInfo", tenDangNhap + "(admin)");

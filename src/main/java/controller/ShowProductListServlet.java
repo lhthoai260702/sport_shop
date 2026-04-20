@@ -30,6 +30,9 @@ public class ShowProductListServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
+        String message = request.getParameter("message");
+        System.out.println("Message: " + message);
+
         HttpSession session = request.getSession();
 
         if (session.getAttribute("accountInfo") == null) {
@@ -37,9 +40,9 @@ public class ShowProductListServlet extends HttpServlet {
         } else {
             ShowProductListBO showProductListBO = new ShowProductListBO();
             ArrayList<HangHoa> dsHangHoa = showProductListBO.getDsHangHoa();
-            
+
             request.setAttribute("dsHangHoa", dsHangHoa);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("productList.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("productList.jsp?message=" + message);
             dispatcher.forward(request, response);
         }
     }

@@ -29,50 +29,70 @@
         </div>
     </nav>
 
-<h2>Quản lý sản phẩm</h2>
+    <h2>Quản lý sản phẩm</h2>
 
-<table border="1" cellpadding="10" cellspacing="0">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>ID</th>
-            <th>Danh mục</th>
-            <th>Giá bán</th>
-            <th>Số lượng</th>
-            <th>Mô tả</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        <%
-            if (dsHangHoa != null && !dsHangHoa.isEmpty()) {
-                int stt = 1;
-                for (HangHoa hh : dsHangHoa) {
-        %>
-        <tr>
-            <td><%= stt++ %></td>
-            <td><%= hh.getMaHH() %></td>
-            <td><%= hh.getTenHH() %></td>
-            <td><%= hh.getGiaBan() %></td>
-            <td><%= hh.getSoLuongTon() %></td>
-            <td><%= hh.getMoTa() %></td>
-            <td>
-                <input type="button" value="Chỉnh sửa" />
-                <input type="button" value="Xóa" />
-            </td>
-        </tr>
-        <%
+    <%-- Xử lý hiển thị lỗi JSP --%>
+    <%
+        String errorCode = request.getParameter("message");
+        if (errorCode != null) {
+            AppMessage appMsg = AppMessage.fromCode(errorCode);
+            
+            // Gán icon phù hợp dựa trên loại thông báo
+            String iconClass = "bx bx-info-circle";
+            if ("error".equals(appMsg.getType())) iconClass = "bx bx-error-circle";
+            else if ("warning".equals(appMsg.getType())) iconClass = "bx bx-error";
+            else if ("success".equals(appMsg.getType())) iconClass = "bx bx-check-circle";
+    %>
+            <div class="alert alert-<%= appMsg.getType() %>">
+                <i class='<%= iconClass %>'></i>
+                <span><%= appMsg.getMessage() %></span>
+            </div>
+    <%
+        }
+    %>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>ID</th>
+                <th>Danh mục</th>
+                <th>Giá bán</th>
+                <th>Số lượng</th>
+                <th>Mô tả</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                if (dsHangHoa != null && !dsHangHoa.isEmpty()) {
+                    int stt = 1;
+                    for (HangHoa hh : dsHangHoa) {
+            %>
+            <tr>
+                <td><%= stt++ %></td>
+                <td><%= hh.getMaHH() %></td>
+                <td><%= hh.getTenHH() %></td>
+                <td><%= hh.getGiaBan() %></td>
+                <td><%= hh.getSoLuongTon() %></td>
+                <td><%= hh.getMoTa() %></td>
+                <td>
+                    <input type="button" value="Chỉnh sửa" />
+                    <input type="button" onclick="location.href='deleteProduct?proId=<%= hh.getMaHH() %>'" value="Xóa" />
+                </td>
+            </tr>
+            <%
                 }
-            } else {
-        %>
-        <tr>
-            <td colspan="7">Không có dữ liệu</td>
-        </tr>
-        <%
-            }
-        %>
-    </tbody>
-</table>
+                } else {
+            %>
+            <tr>
+                <td colspan="7">Không có dữ liệu</td>
+            </tr>
+            <%
+                }
+            %>
+        </tbody>
+    </table>
 
 </body>
 </html>
