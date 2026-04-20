@@ -8,7 +8,10 @@ public enum AppMessage {
     NOT_LOGGED_IN("err2", "Vui lòng đăng nhập để tiếp tục.", "warning"),
 
     // Fallback cho các lỗi không xác định
-    UNKNOWN_ERROR("err99", "Đã xảy ra lỗi hệ thống. Vui lòng thử lại.", "error");
+    UNKNOWN_ERROR("err99", "Đã xảy ra lỗi hệ thống. Vui lòng thử lại.", "error"),
+
+    // thành công
+    DELETE_SUCCESS("success1", "Xóa sản phẩm thành công!", "success");
 
     private final String code;
     private final String message;

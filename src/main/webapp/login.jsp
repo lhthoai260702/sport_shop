@@ -247,7 +247,7 @@
 
         <%-- Xử lý hiển thị lỗi JSP --%>
         <%
-            String errorCode = request.getParameter("error");
+            String errorCode = request.getParameter("message");
             if (errorCode != null) {
                 AppMessage appMsg = AppMessage.fromCode(errorCode);
                 
