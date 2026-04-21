@@ -36,7 +36,7 @@ public class ShowProductListServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("accountInfo") == null) {
-            response.sendRedirect("login.jsp?error=" + AppMessage.NOT_LOGGED_IN.getCode());
+            response.sendRedirect("login.jsp?message=" + AppMessage.NOT_LOGGED_IN.getCode());
         } else {
             ShowProductListBO showProductListBO = new ShowProductListBO();
             ArrayList<HangHoa> dsHangHoa = showProductListBO.getDsHangHoa();
