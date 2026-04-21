@@ -2,6 +2,7 @@
 <%@ page import="common.AppMessage" %>
 <%@ page import="model.bean.HangHoa" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="common.StringCommon"%>
 
 <%
     // Kiểm tra đăng nhập
@@ -78,11 +79,11 @@
                 <td><%= hh.getMaHH() %></td>
                 <td><%= hh.getTenHH() %></td>
                 <td><%= hh.getDanhMuc() %></td>
-                <td><%= hh.getGiaBan() %></td>
+                <td><%= StringCommon.convertDoubleToStringWithComma(hh.getGiaBan()) %></td>
                 <td><%= hh.getSoLuongTon() %></td>
                 <td><%= hh.getMoTa() %></td>
                 <td>
-                    <input type="button" onclick="location.href='ShowEditProductServlet?proId=<%=hh.getMaHH()%>';" value="Chỉnh sửa" />
+                    <input type="button" onclick="location.href='ShowEditProduct?proId=<%=hh.getMaHH()%>';" value="Chỉnh sửa" />
                     <input type="button" onclick="deleteProduct('<%=hh.getMaHH()%>')" value="Xóa" />
                 </td>
             </tr>

@@ -30,5 +30,4 @@ public class CreateProductDAO extends BaseDAO {
         }
         return "No error";
     }
-
 }
