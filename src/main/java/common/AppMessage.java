@@ -7,11 +7,22 @@ public enum AppMessage {
     INVALID_CREDENTIALS("err1", "Tên đăng nhập hoặc mật khẩu không đúng.", "error"),
     NOT_LOGGED_IN("err2", "Vui lòng đăng nhập để tiếp tục.", "warning"),
 
+    // Lỗi tạo sản phẩm
+    DUPLICATE_ID("err3", "Mã hàng hóa đã tồn tại. Vui lòng thử lại.", "error"),
+    INVALID_UNIT_PRIC_1("err4", "Đơn giá không được để trống.", "error"),
+    INVALID_UNIT_PRICE_2("err5", "Giá bán không hợp lệ. Vui lòng nhập số dương.", "error"),
+    INVALID_STOCK_QUANTITY_1("err6", "Số lượng tồn kho không được để trống.", "error"),
+    INVALID_STOCK_QUANTITY_2("err7", "Số lượng tồn kho không hợp lệ. Vui lòng nhập số dương.", "error"),
+    INVALID_PRODUCT_NAME("err8", "Tên hàng hóa không được để trống.", "error"),
+    INVALID_CATEGORY("err9", "Danh mục không được để trống.", "error"),
+
     // Fallback cho các lỗi không xác định
     UNKNOWN_ERROR("err99", "Đã xảy ra lỗi hệ thống. Vui lòng thử lại.", "error"),
 
     // thành công
-    DELETE_SUCCESS("success1", "Xóa sản phẩm thành công!", "success");
+    DELETE_SUCCESS("success1", "Xóa sản phẩm thành công!", "success"),
+    CREATE_SUCCESS("success2", "Tạo sản phẩm thành công!", "success"),
+    UPDATE_SUCCESS("success3", "Cập nhật sản phẩm thành công!", "success");
 
     private final String code;
     private final String message;
@@ -24,7 +35,6 @@ public enum AppMessage {
         this.type = type;
     }
 
-    // Hàm cực kỳ quan trọng: Tìm đối tượng Enum dựa vào mã "err1", "err2" trên URL
     public static AppMessage fromCode(String code) {
         if (code == null || code.trim().isEmpty())
             return null;
@@ -34,7 +44,7 @@ public enum AppMessage {
                 return msg;
             }
         }
-        return UNKNOWN_ERROR; // Nếu trên URL truyền mã bậy bạ (ví dụ: ?error=abc), trả về lỗi mặc định
+        return UNKNOWN_ERROR;
     }
 
     // Getters

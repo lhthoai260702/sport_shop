@@ -21,6 +21,7 @@ public class ShowProductListDAO extends BaseDAO {
                 item = new HangHoa();
                 item.setMaHH(resultSet.getString("MaHH"));
                 item.setTenHH(resultSet.getString("TenHH"));
+                item.setDanhMuc(resultSet.getString("DanhMuc"));
                 item.setGiaBan(resultSet.getDouble("GiaBan"));
                 item.setSoLuongTon(resultSet.getInt("SoLuongTon"));
                 item.setMoTa(resultSet.getString("MoTa"));

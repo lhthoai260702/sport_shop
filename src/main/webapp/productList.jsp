@@ -51,11 +51,15 @@
         }
     %>
 
+    <input type="button" onclick="location.href='ShowCreateProduct'" value="Tạo mới" />
+
+
     <table border="1" cellpadding="10" cellspacing="0">
         <thead>
             <tr>
                 <th>STT</th>
                 <th>ID</th>
+                <th>Tên hàng hoá</th>
                 <th>Danh mục</th>
                 <th>Giá bán</th>
                 <th>Số lượng</th>
@@ -73,6 +77,7 @@
                 <td><%= stt++ %></td>
                 <td><%= hh.getMaHH() %></td>
                 <td><%= hh.getTenHH() %></td>
+                <td><%= hh.getDanhMuc() %></td>
                 <td><%= hh.getGiaBan() %></td>
                 <td><%= hh.getSoLuongTon() %></td>
                 <td><%= hh.getMoTa() %></td>
