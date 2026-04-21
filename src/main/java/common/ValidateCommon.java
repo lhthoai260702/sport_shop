@@ -38,4 +38,8 @@ public class ValidateCommon {
 
         return "No error";
     }
+
+    public static boolean isValidDigitString(String str) {
+        return str != null && str.matches("[0-9]+");
+    }
 }

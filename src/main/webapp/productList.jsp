@@ -54,6 +54,10 @@
 
     <input type="button" onclick="location.href='ShowCreateProduct'" value="Tạo mới" />
 
+    <form action="SearchProduct" method="post">
+        <input type="text" name="searchText" />
+        <input type="submit" value="Search" />
+    </form>
 
     <table border="1" cellpadding="10" cellspacing="0">
         <thead>
