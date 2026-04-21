@@ -49,13 +49,20 @@
         }
     %>
 
-    <form action="CreateProduct" method="post">
+    <%-- Giữ lại dữ liệu cũ khi submit lỗi --%>
+    <% String tenHH = request.getParameter("tenHH") != null ? request.getParameter("tenHH") : ""; %>
+    <% String danhMuc = request.getParameter("danhMuc") != null ? request.getParameter("danhMuc") : ""; %>
+    <% String giaBan = request.getParameter("giaBan") != null ? request.getParameter("giaBan") : ""; %>
+    <% String soLuongTon = request.getParameter("soLuongTon") != null ? request.getParameter("soLuongTon") : ""; %>
+    <% String moTa = request.getParameter("moTa") != null ? request.getParameter("moTa") : ""; %>
+    
+    <form action="CreateProduct" method="post" onsubmit="return true">
         <%-- Mã hàng hoá: <input type="text" name="maHH" /> --%>
-        Tên hàng hoá: <input type="text" name="tenHH" />
-        Danh mục: <input type="text" name="danhMuc" />
-        Giá bán: <input type="text" name="giaBan" />
-        Số lượng tồn: <input type="text" name="soLuongTon" />
-        Mô tả: <input type="text" name="moTa" />
+        Tên hàng hoá: <input type="text" name="tenHH" value="<%= tenHH %>" />
+        Danh mục: <input type="text" name="danhMuc" value="<%= danhMuc %>" />
+        Giá bán: <input type="text" name="giaBan" value="<%= giaBan %>" />
+        Số lượng tồn: <input type="text" name="soLuongTon" value="<%= soLuongTon %>" />
+        Mô tả: <input type="text" name="moTa" value="<%= moTa %>" />
 
         <input type="submit"  onclick="return true;" value="Thêm" />
         <input type="reset" value="Huỷ bỏ" />

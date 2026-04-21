@@ -1,12 +1,16 @@
 package model.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.dao.CreateProductDAO;
 
 public class CreateProductBO {
 
     CreateProductDAO createProductDAO = new CreateProductDAO();
 
-    public String createProduct(String tenHH, String danhMuc, String giaBanStr, String soLuongTonStr, String moTa) {
+    public String createProduct(String tenHH, String danhMuc, String giaBanStr,
+            String soLuongTonStr, String moTa) {
         String resultMessage = null;
 
         // validate dữ liệu đầu vào
@@ -46,7 +50,8 @@ public class CreateProductBO {
 
         for (int i = 0; i < 10; i++) {
 
-            String returnedMessage = createProductDAO.createProduct(tenHH, danhMuc, giaBanStr, soLuongTonStr, moTa);
+            String returnedMessage = createProductDAO.createProduct(tenHH, danhMuc,
+                    giaBanStr, soLuongTonStr, moTa);
             if ("Duplicate ID Error".equals(returnedMessage)) {
                 resultMessage = "Duplicate ID Error";
                 continue;

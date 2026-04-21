@@ -1,5 +1,6 @@
 package controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import model.bo.CreateProductBO;
 import common.AppMessage;
 import java.io.IOException;
+import jakarta.servlet.ServletException;
 
 @WebServlet(name = "CreateProductServlet", urlPatterns = { "/CreateProduct" })
 public class CreateProductServlet extends HttpServlet {
@@ -15,15 +17,13 @@ public class CreateProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
         doPost(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        System.out.println("CreateProductServlet: doPost called");
-
+            throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
@@ -44,24 +44,28 @@ public class CreateProductServlet extends HttpServlet {
 
         CreateProductBO createProductBO = new CreateProductBO();
         String returnedMessage = createProductBO.createProduct(tenHH, danhMuc, giaBanStr, soLuongTonStr, moTa);
+        System.out.println("Returned message from BO: " + returnedMessage);
+
+        RequestDispatcher rd = null;
         if ("No error".equals(returnedMessage)) {
-            response.sendRedirect("showProductList?message=" + AppMessage.CREATE_SUCCESS.getCode());
+            rd = request.getRequestDispatcher("showProductList?message=" + AppMessage.CREATE_SUCCESS.getCode());
         } else if ("Duplicate ID Error".equals(returnedMessage)) {
-            response.sendRedirect("ShowCreateProduct?message=" + AppMessage.DUPLICATE_ID.getCode());
+            rd =request.getRequestDispatcher("ShowCreateProduct?message=" + AppMessage.DUPLICATE_ID.getCode());
         } else if ("Price cannot be empty".equals(returnedMessage)) {
-            response.sendRedirect("ShowCreateProduct?message=" + AppMessage.INVALID_UNIT_PRIC_1.getCode());
-        } else if ("Price cannot be negative".equals(returnedMessage)) {
-            response.sendRedirect("ShowCreateProduct?message=" + AppMessage.INVALID_UNIT_PRICE_2.getCode());
+            rd = request.getRequestDispatcher("ShowCreateProduct?message=" + AppMessage.INVALID_UNIT_PRIC_1.getCode());
+        } else if ("Price cannot be negative".equals(returnedMessage) || "Invalid price format".equals(returnedMessage)) {
+            rd = request.getRequestDispatcher("ShowCreateProduct?message=" + AppMessage.INVALID_UNIT_PRICE_2.getCode());
         } else if ("Stock quantity cannot be empty".equals(returnedMessage)) {
-            response.sendRedirect("ShowCreateProduct?message=" + AppMessage.INVALID_STOCK_QUANTITY_1.getCode());
-        } else if ("Stock quantity cannot be negative".equals(returnedMessage)) {
-            response.sendRedirect("ShowCreateProduct?message=" + AppMessage.INVALID_STOCK_QUANTITY_2.getCode());
+            rd = request.getRequestDispatcher("ShowCreateProduct?message=" + AppMessage.INVALID_STOCK_QUANTITY_1.getCode());
+        } else if ("Stock quantity cannot be negative".equals(returnedMessage) || "Invalid stock quantity format".equals(returnedMessage)) {
+            rd = request.getRequestDispatcher("ShowCreateProduct?message=" + AppMessage.INVALID_STOCK_QUANTITY_2.getCode());
         } else if ("Product name cannot be empty".equals(returnedMessage)) {
-            response.sendRedirect("ShowCreateProduct?message=" + AppMessage.INVALID_PRODUCT_NAME.getCode());
+            rd = request.getRequestDispatcher("ShowCreateProduct?message=" + AppMessage.INVALID_PRODUCT_NAME.getCode());
         } else if ("Category cannot be empty".equals(returnedMessage)) {
-            response.sendRedirect("ShowCreateProduct?message=" + AppMessage.INVALID_CATEGORY.getCode());
+            rd = request.getRequestDispatcher("ShowCreateProduct?message=" + AppMessage.INVALID_CATEGORY.getCode());
         } else {
-            response.sendRedirect("showProductList?message=" + AppMessage.UNKNOWN_ERROR.getCode());
+            rd = request.getRequestDispatcher("showProductList?message=" + AppMessage.UNKNOWN_ERROR.getCode());
         }
+        rd.forward(request, response);
     }
 }
