@@ -77,8 +77,8 @@
                 <td><%= hh.getSoLuongTon() %></td>
                 <td><%= hh.getMoTa() %></td>
                 <td>
-                    <input type="button" value="Chỉnh sửa" />
-                    <input type="button" onclick="location.href='deleteProduct?proId=<%= hh.getMaHH() %>'" value="Xóa" />
+                    <input type="button" onclick="location.href='ShowEditProductServlet?proId=<%=hh.getMaHH()%>';" value="Chỉnh sửa" />
+                    <input type="button" onclick="deleteProduct('<%=hh.getMaHH()%>')" value="Xóa" />
                 </td>
             </tr>
             <%
@@ -94,5 +94,12 @@
         </tbody>
     </table>
 
+    <script>
+        function deleteProduct(proId) {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                window.location.href = "deleteProduct?proId=" + proId;
+            }
+        }
+    </script>
 </body>
 </html>
