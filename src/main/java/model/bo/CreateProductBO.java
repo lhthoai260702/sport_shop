@@ -1,8 +1,5 @@
 package model.bo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.dao.CreateProductDAO;
 
 public class CreateProductBO {
