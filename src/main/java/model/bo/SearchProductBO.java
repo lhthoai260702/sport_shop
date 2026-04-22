@@ -13,4 +13,13 @@ public class SearchProductBO {
         return searchProductDAO.getDsHangHoa(searchText);
     }
 
+    public ArrayList<HangHoa> getDsHangHoa(String searchText, int pageNumber) {
+        return searchProductDAO.getDsHangHoa(searchText, pageNumber);
+    }
+
+    public int getTotalPageNumber(String searchText) {
+        // TODO Auto-generated method stub
+        return searchProductDAO.getTotalPageNumber(searchText);
+    }
+
 }

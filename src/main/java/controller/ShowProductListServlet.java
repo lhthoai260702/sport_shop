@@ -34,6 +34,7 @@ public class ShowProductListServlet extends HttpServlet {
         System.out.println("Message: " + message);
 
         HttpSession session = request.getSession();
+        session.removeAttribute("searchText");
 
         if (session.getAttribute("accountInfo") == null) {
             response.sendRedirect("login.jsp?message=" + AppMessage.NOT_LOGGED_IN.getCode());

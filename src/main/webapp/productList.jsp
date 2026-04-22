@@ -54,10 +54,19 @@
 
     <input type="button" onclick="location.href='ShowCreateProduct'" value="Tạo mới" />
 
+    <%
+    String searchText = session.getAttribute("searchText") != null 
+        ? (String) session.getAttribute("searchText") 
+        : "";
+
+    String functionPrefix = "".equals(searchText) ? "ShowProductList" : "SearchProduct";
+    %>
+
     <form action="SearchProduct" method="post">
-        <input type="text" name="searchText" />
+        <input type="text" name="searchText" value="<%=searchText%>" />
         <input type="submit" value="Search" />
     </form>
+
 
 <%
     int currentPageNumber = (Integer)request.getAttribute("currentPageNumber");
@@ -148,8 +157,8 @@
     </table>
 
 <% if (currentPageNumber > 1) { %>
-    <a href="ShowProductList?page=1">First</a>
-    <a href="ShowProductList?page=<%= currentPageNumber - 1 %>">Previous</a>
+    <a href="<%=functionPrefix%>?page=1">First</a>
+    <a href="<%=functionPrefix%>?page=<%= currentPageNumber - 1 %>">Previous</a>
 <% } %>
 
 <%
@@ -157,13 +166,13 @@
     for (int k = 0; k < pageQuantity; k++) {
         if (pageNumberList[k] == currentPageNumber) {
 %>
-            <a href="ShowProductList?page=<%= pageNumberList[k] %>">
+            <a href="<%=functionPrefix%>?page=<%= pageNumberList[k] %>">
                 <b><%= pageNumberList[k] %></b>
             </a>
 <%
         } else {
 %>
-            <a href="ShowProductList?page=<%= pageNumberList[k] %>">
+            <a href="<%=functionPrefix%>?page=<%= pageNumberList[k] %>">
                 <%= pageNumberList[k] %>
             </a>
 <%
@@ -172,8 +181,8 @@
 %>
 
 <% if (currentPageNumber < totalPageNumber) { %>
-    <a href="ShowProductList?page=<%= currentPageNumber + 1 %>">Next</a>
-    <a href="ShowProductList?page=<%= currentPageNumber %>">Last</a>
+    <a href="<%=functionPrefix%>?page=<%= currentPageNumber + 1 %>">Next</a>
+    <a href="<%=functionPrefix%>?page=<%= currentPageNumber %>">Last</a>
 <% } %>
 
     <script>
