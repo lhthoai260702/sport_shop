@@ -12,13 +12,13 @@
     
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-gradient: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
-            --text-dark: #111827;
-            --text-muted: #6b7280;
-            --border-color: #e5e7eb;
-            --input-bg: #f9fafb;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --input-bg: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(255, 255, 255, 0.5);
+            --focus-ring: rgba(99, 102, 241, 0.25);
         }
 
         * {
@@ -29,14 +29,15 @@
         }
 
         body {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Background hiện đại với các dải màu nổi bật */
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            /* Background Mesh Gradient mượt mà và sang trọng hơn */
+            background: linear-gradient(-45deg, #c7d2fe, #fbcfe8, #fef08a, #a7f3d0);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
+            padding: 1rem;
         }
 
         @keyframes gradientBG {
@@ -46,19 +47,22 @@
         }
 
         .login-container {
-            /* Hiệu ứng kính (Glassmorphism) */
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            /* Authentic Glassmorphism */
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             padding: 3rem 2.5rem;
-            border-radius: 1.25rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
             width: 100%;
             max-width: 420px;
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -67,20 +71,35 @@
             margin-bottom: 1.5rem;
         }
 
+        .brand-logo .logo-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+            transform: rotate(-10deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .login-container:hover .logo-circle {
+            transform: rotate(0deg) scale(1.05);
+        }
+
         .brand-logo i {
-            font-size: 3rem;
-            color: var(--primary);
-            background: #eef2ff;
-            padding: 1rem;
-            border-radius: 50%;
+            font-size: 2.5rem;
+            color: #ffffff;
         }
 
         h2 {
             text-align: center;
             font-weight: 700;
             color: var(--text-dark);
-            font-size: 1.75rem;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
         }
 
         .subtitle {
@@ -88,19 +107,21 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-bottom: 2rem;
+            font-weight: 400;
         }
 
         /* --- STYLING CHO THÔNG BÁO LỖI --- */
         .alert {
             padding: 1rem;
-            border-radius: 0.75rem;
+            border-radius: 1rem;
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             animation: shake 0.5s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
         @keyframes shake {
@@ -112,21 +133,21 @@
         .alert i { font-size: 1.25rem; }
         
         .alert-error {
-            background-color: #fef2f2;
+            background-color: rgba(254, 242, 242, 0.9);
             color: #b91c1c;
-            border: 1px solid #fecaca;
+            border: 1px solid #fca5a5;
         }
         
         .alert-warning {
-            background-color: #fffbeb;
+            background-color: rgba(255, 251, 235, 0.9);
             color: #b45309;
-            border: 1px solid #fde68a;
+            border: 1px solid #fcd34d;
         }
         
         .alert-success {
-            background-color: #f0fdf4;
+            background-color: rgba(240, 253, 244, 0.9);
             color: #15803d;
-            border: 1px solid #bbf7d0;
+            border: 1px solid #86efac;
         }
 
         /* --- STYLING CHO FORM --- */
@@ -144,42 +165,62 @@
 
         .input-wrapper {
             position: relative;
+            display: flex;
+            align-items: center;
         }
 
-        .input-wrapper i {
+        .input-wrapper .icon-left {
             position: absolute;
             left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
+            color: #94a3b8;
             font-size: 1.25rem;
             transition: color 0.3s ease;
+            z-index: 2;
         }
 
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 0.875rem 1rem 0.875rem 2.75rem; /* Padding trái lớn hơn để chừa chỗ cho icon */
+            padding: 0.875rem 2.5rem 0.875rem 2.75rem;
             background-color: var(--input-bg);
             border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
+            border-radius: 1rem;
             font-size: 1rem;
             color: var(--text-dark);
             transition: all 0.3s ease;
             outline: none;
+            backdrop-filter: blur(5px);
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #94a3b8;
         }
 
         input[type="text"]:focus,
         input[type="password"]:focus {
             background-color: #ffffff;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+            box-shadow: 0 0 0 4px var(--focus-ring);
         }
 
-        input[type="text"]:focus + i,
-        input[type="password"]:focus + i,
-        .input-wrapper input:focus ~ i {
+        input[type="text"]:focus ~ .icon-left,
+        input[type="password"]:focus ~ .icon-left {
             color: var(--primary);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            color: #94a3b8;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2;
+        }
+
+        .toggle-password:hover {
+            color: var(--text-dark);
         }
 
         .button-group {
@@ -192,7 +233,7 @@
         .btn {
             width: 100%;
             padding: 0.875rem;
-            border-radius: 0.75rem;
+            border-radius: 1rem;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -205,31 +246,33 @@
         }
 
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--primary-hover));
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+            box-shadow: 0 4px 15px -3px rgba(99, 102, 241, 0.4);
         }
 
         .btn-primary:hover {
-            background-color: var(--primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 8px 25px -5px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
         }
 
         .btn-secondary {
-            background-color: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.5);
+            color: var(--text-dark);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .btn-secondary:hover {
-            background-color: #f3f4f6;
-            color: var(--text-dark);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         @media (max-width: 480px) {
             .login-container {
-                margin: 1rem;
                 padding: 2rem 1.5rem;
             }
         }
@@ -239,7 +282,9 @@
 
     <div class="login-container">
         <div class="brand-logo">
-            <i class='bx bx-cube-alt'></i>
+            <div class="logo-circle">
+                <i class='bx bx-cube-alt'></i>
+            </div>
         </div>
         
         <h2>Đăng nhập</h2>
@@ -269,16 +314,17 @@
             <div class="form-group">
                 <label for="tenDangNhap">Tên đăng nhập</label>
                 <div class="input-wrapper">
+                    <i class='bx bx-user icon-left'></i>
                     <input type="text" id="tenDangNhap" name="tenDangNhap" required placeholder="Nhập tên đăng nhập">
-                    <i class='bx bx-user'></i>
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="matKhau">Mật khẩu</label>
                 <div class="input-wrapper">
+                    <i class='bx bx-lock-alt icon-left'></i>
                     <input type="password" id="matKhau" name="matKhau" required placeholder="Nhập mật khẩu">
-                    <i class='bx bx-lock-alt'></i>
+                    <i class='bx bx-hide toggle-password' id="togglePassword"></i>
                 </div>
             </div>
             
@@ -293,5 +339,20 @@
         </form>
     </div>
 
+    <script>
+        // Script nhỏ để xử lý tính năng Hiện/Ẩn mật khẩu
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#matKhau');
+
+        togglePassword.addEventListener('click', function (e) {
+            // Đổi type của input
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // Đổi icon con mắt
+            this.classList.toggle('bx-show');
+            this.classList.toggle('bx-hide');
+        });
+    </script>
 </body>
 </html>
