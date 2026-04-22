@@ -31,9 +31,9 @@
 
     <%-- Xử lý hiển thị lỗi JSP --%>
     <%
-        String errorCode = request.getParameter("message");
-        if (errorCode != null) {
-            AppMessage appMsg = AppMessage.fromCode(errorCode);
+        String message = request.getParameter("message");
+        if (message != null && !"null".equals(message)) {
+            AppMessage appMsg = AppMessage.fromCode(message);
             
             // Gán icon phù hợp dựa trên loại thông báo
             String iconClass = "bx bx-info-circle";

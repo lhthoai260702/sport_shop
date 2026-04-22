@@ -6,15 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import common.ValidateCommon;
 
 public class SearchProductDAO extends BaseDAO {
 
     public ArrayList<HangHoa> getDsHangHoa(String searchText) {
         ArrayList<HangHoa> dsHangHoa = new ArrayList<HangHoa>();
-        String sql = "SELECT * FROM HangHoa WHERE MaHH LIKE ? OR TenHH LIKE ? OR DanhMuc LIKE ? OR GiaBan = ? OR SoLuongTon LIKE ? OR MoTa LIKE ?";
-
+        String sql = "SELECT * FROM HangHoa WHERE MaHH LIKE ? OR TenHH LIKE ? OR DanhMuc LIKE ? OR MoTa LIKE ? OR GiaBan = ? OR SoLuongTon = ?";
         try (Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, "%" + searchText + "%");
@@ -22,11 +20,12 @@ public class SearchProductDAO extends BaseDAO {
             pstmt.setString(3, "%" + searchText + "%");
             pstmt.setString(4, "%" + searchText + "%");
             if (ValidateCommon.isValidDigitString(searchText)) {
-                pstmt.setDouble(5, Double.valueOf(searchText));
+                pstmt.setDouble(5, Double.parseDouble(searchText));
+                pstmt.setInt(6, Integer.parseInt(searchText));
             } else {
-                pstmt.setDouble(5, -1); // so am bat ky de khong match
+                pstmt.setDouble(5, -1);
+                pstmt.setInt(6, -1);
             }
-            pstmt.setString(6, "%" + searchText + "%");
             try (ResultSet rs = pstmt.executeQuery()) {
                 HangHoa hangHoa = null;
                 while (rs.next()) {

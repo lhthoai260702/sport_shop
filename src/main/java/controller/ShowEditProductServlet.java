@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.bean.HangHoa;
-import model.bo.CreateProductBO;
 import model.bo.EditProductBO;
 import common.AppMessage;
 import java.io.IOException;

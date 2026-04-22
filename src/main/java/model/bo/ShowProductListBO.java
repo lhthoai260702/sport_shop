@@ -13,4 +13,12 @@ public class ShowProductListBO {
         return showProductListDAO.getDsHangHoa();
     }
 
+    public ArrayList<HangHoa> getDsHangHoa(int pageNumber) {
+        return showProductListDAO.getDsHangHoa(pageNumber);
+    }
+
+    public int getTotalPageNumber() {
+        return showProductListDAO.getTotalPageNumber();
+    }
+
 }

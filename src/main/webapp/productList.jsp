@@ -34,9 +34,9 @@
 
     <%-- Xử lý hiển thị lỗi JSP --%>
     <%
-        String errorCode = request.getParameter("message");
-        if (errorCode != null) {
-            AppMessage appMsg = AppMessage.fromCode(errorCode);
+        String message = request.getParameter("message");
+        if (message != null && !"null".equals(message)) {
+            AppMessage appMsg = AppMessage.fromCode(message);
             
             // Gán icon phù hợp dựa trên loại thông báo
             String iconClass = "bx bx-info-circle";
@@ -59,6 +59,49 @@
         <input type="submit" value="Search" />
     </form>
 
+<%
+    int currentPageNumber = (Integer)request.getAttribute("currentPageNumber");
+    int totalPageNumber   = (Integer)request.getAttribute("totalPageNumber");
+
+    int[] pageNumberList = new int[10];
+    int pageQuantity = 0;
+
+    // Trường hợp tổng page <= 10
+    if (totalPageNumber <= 10) {
+        for (int j = 0; j < totalPageNumber; j++) {
+            pageNumberList[j] = j + 1;
+            pageQuantity++;
+        }
+    }
+
+    // Trường hợp > 10 và đang ở đầu
+    if (totalPageNumber > 10 && currentPageNumber <= 4) {
+        for (int j = 0; j < 10; j++) {
+            pageNumberList[j] = j + 1;
+            pageQuantity++;
+        }
+    }
+
+    // Trường hợp > 10 và đang ở cuối
+    if (totalPageNumber > 10 && currentPageNumber >= (totalPageNumber - 5)) {
+        for (int j = 10; j >= 1; j--) {
+            pageNumberList[j - 1] = totalPageNumber - (10 - j);
+            pageQuantity++;
+        }
+    }
+
+    // Trường hợp ở giữa
+    if (totalPageNumber > 10 
+        && currentPageNumber >= 5 
+        && currentPageNumber <= (totalPageNumber - 5)) {
+        
+        for (int j = 0; j < 10; j++) {
+            pageNumberList[j] = currentPageNumber - 3 + j;
+            pageQuantity++;
+        }
+    }
+%>
+
     <table border="1" cellpadding="10" cellspacing="0">
         <thead>
             <tr>
@@ -75,7 +118,7 @@
         <tbody>
             <%
                 if (dsHangHoa != null && !dsHangHoa.isEmpty()) {
-                    int stt = 1;
+                    int stt = (currentPageNumber - 1)*20 + 1;
                     for (HangHoa hh : dsHangHoa) {
             %>
             <tr>
@@ -103,6 +146,35 @@
             %>
         </tbody>
     </table>
+
+<% if (currentPageNumber > 1) { %>
+    <a href="ShowProductList?page=1">First</a>
+    <a href="ShowProductList?page=<%= currentPageNumber - 1 %>">Previous</a>
+<% } %>
+
+<%
+    // Render pagination
+    for (int k = 0; k < pageQuantity; k++) {
+        if (pageNumberList[k] == currentPageNumber) {
+%>
+            <a href="ShowProductList?page=<%= pageNumberList[k] %>">
+                <b><%= pageNumberList[k] %></b>
+            </a>
+<%
+        } else {
+%>
+            <a href="ShowProductList?page=<%= pageNumberList[k] %>">
+                <%= pageNumberList[k] %>
+            </a>
+<%
+        }
+    }
+%>
+
+<% if (currentPageNumber < totalPageNumber) { %>
+    <a href="ShowProductList?page=<%= currentPageNumber + 1 %>">Next</a>
+    <a href="ShowProductList?page=<%= currentPageNumber %>">Last</a>
+<% } %>
 
     <script>
         function deleteProduct(proId) {

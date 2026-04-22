@@ -13,7 +13,7 @@ import model.bean.HangHoa;
 import model.bo.ShowProductListBO;
 import common.AppMessage;
 
-@WebServlet(name = "ShowProductListServlet", urlPatterns = { "/showProductList" })
+@WebServlet(name = "ShowProductListServlet", urlPatterns = { "/ShowProductList" })
 public class ShowProductListServlet extends HttpServlet {
 
     @Override
@@ -37,13 +37,27 @@ public class ShowProductListServlet extends HttpServlet {
 
         if (session.getAttribute("accountInfo") == null) {
             response.sendRedirect("login.jsp?message=" + AppMessage.NOT_LOGGED_IN.getCode());
-        } else {
-            ShowProductListBO showProductListBO = new ShowProductListBO();
-            ArrayList<HangHoa> dsHangHoa = showProductListBO.getDsHangHoa();
-
-            request.setAttribute("dsHangHoa", dsHangHoa);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("productList.jsp?message=" + message);
-            dispatcher.forward(request, response);
+            return;
         }
+
+        ShowProductListBO showProductListBO = new ShowProductListBO();
+        // ArrayList<HangHoa> dsHangHoa = showProductListBO.getDsHangHoa();
+
+        String page = request.getParameter("page");
+        int pageNumber = 1; // Mẫc định là trang 1
+        if (page != null && !"".equals(page)) {
+            pageNumber = Integer.valueOf(page);
+        }
+        ArrayList<HangHoa> dsHangHoa = showProductListBO.getDsHangHoa(pageNumber);
+        int totalPageNumber = showProductListBO.getTotalPageNumber();
+
+        request.setAttribute("dsHangHoa", dsHangHoa);
+        request.setAttribute("currentPageNumber", pageNumber);
+        request.setAttribute("totalPageNumber", totalPageNumber);
+
+        System.out.println("message show product: " + message);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("productList.jsp?message=" + message);
+        dispatcher.forward(request, response);
+
     }
 }

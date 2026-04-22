@@ -48,7 +48,7 @@ public class CreateProductServlet extends HttpServlet {
 
         RequestDispatcher rd = null;
         if ("No error".equals(returnedMessage)) {
-            rd = request.getRequestDispatcher("showProductList?message=" + AppMessage.CREATE_SUCCESS.getCode());
+            rd = request.getRequestDispatcher("ShowProductList?message=" + AppMessage.CREATE_SUCCESS.getCode());
         } else if ("Duplicate ID Error".equals(returnedMessage)) {
             rd = request.getRequestDispatcher("ShowCreateProduct?message=" + AppMessage.DUPLICATE_ID.getCode());
         } else if ("Price cannot be empty".equals(returnedMessage)) {

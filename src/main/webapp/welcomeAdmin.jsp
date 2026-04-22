@@ -181,7 +181,7 @@
             <p>Chọn các chức năng bên dưới để quản lý hệ thống của bạn.</p>
             
             <div class="menu-actions">
-                <a href="showProductList" class="btn-action">
+                <a href="ShowProductList" class="btn-action">
                     📦 Quản lý hàng hóa
                 </a>
                 </div>

@@ -39,6 +39,6 @@ public class DeleteProductServlet extends HttpServlet {
         DeleteProductBO deleteProductBO = new DeleteProductBO();
         deleteProductBO.deleteProduct(proId);
 
-        response.sendRedirect("showProductList?message=" + AppMessage.DELETE_SUCCESS.getCode());
+        response.sendRedirect("ShowProductList?message=" + AppMessage.DELETE_SUCCESS.getCode());
     }
 }
